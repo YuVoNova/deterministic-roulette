@@ -7,9 +7,14 @@ namespace GameManager
     {
         public event Action OnSceneLoaded;
 
+        public SceneLoader()
+        {
+            SceneManager.sceneLoaded += SceneLoaded;
+        }
+        
         public void Dispose()
         {
-            
+            SceneManager.sceneLoaded -= SceneLoaded;
         }
 
         public void LoadScene(Scenes sceneToLoad)
@@ -22,6 +27,11 @@ namespace GameManager
         {
             int sceneId = (int) sceneToLoad;
             SceneManager.LoadSceneAsync(sceneId, LoadSceneMode.Single);
+        }
+
+        private void SceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+        {
+            OnSceneLoaded?.Invoke();
         }
     }
 }

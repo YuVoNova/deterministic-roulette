@@ -29,14 +29,16 @@ namespace GameManager
 
         private void OnDestroy()
         {
-            _sceneLoader.Dispose();
-
+            _sceneLoader?.Dispose();
+            
             _coroutineService.Dispose();
+            _lifeCycleCallbacksService.Dispose();
         }
 
         private void SceneLoaded()
         {
             _sceneLoader.OnSceneLoaded -= SceneLoaded;
+            _sceneLoader.Dispose();
             
             _dataStore = new DataStore();
             _lifeCycleCallbacksService = new LifeCycleCallbacksService();
