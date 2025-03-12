@@ -4,7 +4,7 @@ namespace Roulette
 {
     public class WheelRotation : MonoBehaviour
     {
-        private const float ROTATION_SPEED = 80f;
+        private const float ROTATION_SPEED = -25f;
         
         private void Update()
         {
