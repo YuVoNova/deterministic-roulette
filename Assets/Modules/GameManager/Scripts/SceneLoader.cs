@@ -1,5 +1,6 @@
 using System;
 using UnityEngine.SceneManagement;
+using Utils;
 
 namespace GameManager
 {
@@ -11,7 +12,7 @@ namespace GameManager
         {
             SceneManager.sceneLoaded += SceneLoaded;
         }
-        
+
         public void Dispose()
         {
             SceneManager.sceneLoaded -= SceneLoaded;
@@ -19,18 +20,21 @@ namespace GameManager
 
         public void LoadScene(Scenes sceneToLoad)
         {
-            int sceneId = (int) sceneToLoad;
+            int sceneId = (int)sceneToLoad;
             SceneManager.LoadScene(sceneId, LoadSceneMode.Single);
         }
 
         public void LoadSceneAsync(Scenes sceneToLoad)
         {
-            int sceneId = (int) sceneToLoad;
+            int sceneId = (int)sceneToLoad;
             SceneManager.LoadSceneAsync(sceneId, LoadSceneMode.Single);
         }
 
         private void SceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
+            if (scene.buildIndex != Const.GAME_SCENE_INDEX)
+                return;
+
             OnSceneLoaded?.Invoke();
         }
     }
