@@ -1,34 +1,42 @@
 using System;
 using UnityEngine;
-using Utils;
 
 namespace Roulette
 {
     public class BallController
     {
-        public event Action<int> OnBallResult;
-        
+        public event Action OnBallStopped;
+
         private readonly IBallView _view;
-        
-        public BallController(Vector3 ballSpinPosition)
+
+        public BallController(Transform rotatingWheel, Vector3 ballSpinPosition)
         {
             _view = GameObject.FindObjectOfType<BallView>();
-            _view.Init(ballSpinPosition);
+            _view.Init(rotatingWheel, ballSpinPosition);
             _view.Standby();
+            _view.OnBallStopped += BallStopped;
         }
 
         public void Dispose()
         {
-            _view?.Dispose();
+            if (_view == null)
+                return;
+
+            _view.OnBallStopped -= BallStopped;
+            _view.Dispose();
         }
 
-        public void SpinBall(int deterministicResult = -1)
+        public void SpinBall(Transform targetPocketTransform)
         {
-            // No valid deterministic result is given, ball will end in a random pocket.
-            if (deterministicResult is < Const.MIN_POCKET_VALUE or > Const.MAX_POCKET_VALUE)
-            {
-                
-            }
+            if (targetPocketTransform == null)
+                return;
+
+            _view.StartBallSpin(targetPocketTransform);
+        }
+
+        private void BallStopped()
+        {
+            OnBallStopped?.Invoke();
         }
     }
 }

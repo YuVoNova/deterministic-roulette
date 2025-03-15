@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Context;
 using Roulette;
@@ -13,11 +12,11 @@ namespace GameManager
         private ILifeCycleCallbacksService _lifeCycleCallbacksService;
 
         private RouletteModule _rouletteModule;
-        
+
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            
+
             _sceneLoader = new SceneLoader();
             _sceneLoader.OnSceneLoaded += SceneLoaded;
         }
@@ -30,21 +29,21 @@ namespace GameManager
         private void OnDestroy()
         {
             _sceneLoader?.Dispose();
-            
-            _coroutineService.Dispose();
-            _lifeCycleCallbacksService.Dispose();
+
+            _coroutineService?.Dispose();
+            _lifeCycleCallbacksService?.Dispose();
+            _rouletteModule?.Dispose();
         }
 
         private void SceneLoaded()
         {
             _sceneLoader.OnSceneLoaded -= SceneLoaded;
             _sceneLoader.Dispose();
-            
+
             _dataStore = new DataStore();
             _lifeCycleCallbacksService = new LifeCycleCallbacksService();
             _coroutineService = new CoroutineService();
-            
-            
+            _rouletteModule = new RouletteModule();
         }
     }
 }

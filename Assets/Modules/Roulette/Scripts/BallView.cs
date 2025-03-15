@@ -1,115 +1,147 @@
 using System;
+using System.Collections;
 using UnityEngine;
-using Utils;
 
 namespace Roulette
 {
     public interface IBallView
     {
-        event Action<int> OnBallStopped;
-        
-        Rigidbody Rigidbody { get; }
-        Collider Collider { get; }
+        event Action OnBallStopped;
 
-        void Init(Vector3 ballSpinPosition);
+        void Init(Transform rotatingWheel, Vector3 ballSpinPosition);
         void Dispose();
         void Standby();
-        void Spin();
+        void StartBallSpin(Transform targetPocketTransform);
     }
 
     public class BallView : MonoBehaviour, IBallView
     {
-        public event Action<int> OnBallStopped;
-        
-        [SerializeField] private Rigidbody rigidbody;
-        [SerializeField] private Collider collider;
+        private const float BOUNCE_FORCE = 0.5f;
+        private const float SPIN_SPEED = 5f;
+        private const float SPIN_DURATION = 3f;
+        private const float DROP_DURATION = 1.5f;
+        private const float TRACK_RADIUS = 5.6f;
+        private const float DROP_RADIUS = 3.075f;
+        private const float MIN_SPIN_SPEED = 1f;
+        private const float POCKET_DISTANCE_THRESHOLD = 3.75f;
+        private const float DROP_HEIGHT_OFFSET = 0.25f;
 
-        private Vector3 _initialPosition;
+        public event Action OnBallStopped;
+
+        private Transform _initialParent;
+        private Transform _wheel;
+        private Transform _targetPocket;
+
         private Vector3 _ballSpinPosition;
-        private int _latestInteractedPocket = -1;
-        private bool _isSpinning = false;
-
-        public Rigidbody Rigidbody => rigidbody;
-        public Collider Collider => collider;
+        private float _angle;
+        private float _currentSpinSpeed = SPIN_SPEED;
 
         private void Awake()
         {
-            _initialPosition = transform.position;
+            _initialParent = transform.parent;
         }
 
-        private void Update()
+        public void Init(Transform rotatingWheel, Vector3 ballSpinPosition)
         {
-            if (_isSpinning)
-            {
-                if (rigidbody.velocity.magnitude < 0.1f && rigidbody.angularVelocity.magnitude < 0.1f)
-                {
-                    _isSpinning = false;
-                    rigidbody.velocity = Vector3.zero;
-                    rigidbody.angularVelocity = Vector3.zero;
-
-                    if (_latestInteractedPocket != -1)
-                    {
-                        OnBallStopped?.Invoke(_latestInteractedPocket);
-                    }
-                    else
-                    {
-                        // ERROR -> Ball stopped at a non-pocket position.
-                    }
-                }
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            int pocketNumber = GetPocketNumber(other.transform.tag, other.transform.name);
-            if (pocketNumber != -1)
-                _latestInteractedPocket = pocketNumber;
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (_latestInteractedPocket == -1)
-                return;
-            
-            int pocketNumber = GetPocketNumber(other.transform.tag, other.transform.name);
-            if (pocketNumber == _latestInteractedPocket)
-                _latestInteractedPocket = -1;
-        }
-
-        public void Init(Vector3 ballSpinPosition)
-        {
+            _wheel = rotatingWheel;
             _ballSpinPosition = ballSpinPosition;
         }
 
         public void Dispose()
         {
-            if (gameObject != null)
-                Destroy(gameObject);
+            StopAllCoroutines();
         }
 
         public void Standby()
         {
-            
         }
 
-        public void Spin()
+        public void StartBallSpin(Transform targetPocketTransform)
         {
-            
+            _targetPocket = targetPocketTransform;
+            transform.parent = _initialParent;
+            transform.position = _ballSpinPosition;
+            _angle = 0f;
+
+            StartCoroutine(SpinBallRoutine());
         }
 
-        private static int GetPocketNumber(string tag, string name)
+        private IEnumerator SpinBallRoutine()
         {
-            if (!string.Equals(tag, Const.POCKET_TAG))
-                return -1;
+            _currentSpinSpeed = SPIN_SPEED;
+            float elapsedTime = 0f;
 
-            string[] pocketName = name.Split('_');
-            if (pocketName.Length < 2)
-                return -1;
+            while (elapsedTime < SPIN_DURATION)
+            {
+                _angle -= _currentSpinSpeed * Time.deltaTime * 100f;
+                float radianAngle = _angle * Mathf.Deg2Rad;
+                transform.position = new Vector3(
+                    _wheel.position.x + TRACK_RADIUS * Mathf.Cos(radianAngle),
+                    transform.position.y,
+                    _wheel.position.z + TRACK_RADIUS * Mathf.Sin(radianAngle)
+                );
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
 
-            if (int.TryParse(pocketName[1], out int pocketNumber))
-                return pocketNumber;
+            yield return StartCoroutine(TransitionRoutine());
+            yield return StartCoroutine(DropBallRoutine());
+        }
 
-            return -1;
+        private IEnumerator TransitionRoutine()
+        {
+            _currentSpinSpeed = SPIN_SPEED;
+            while (_currentSpinSpeed > MIN_SPIN_SPEED)
+            {
+                _currentSpinSpeed = Mathf.Max(MIN_SPIN_SPEED, _currentSpinSpeed - ((SPIN_SPEED - MIN_SPIN_SPEED) * Time.deltaTime / 1f));
+                _angle -= _currentSpinSpeed * Time.deltaTime * 100f;
+                float radianAngle = _angle * Mathf.Deg2Rad;
+                transform.position = new Vector3(
+                    _wheel.position.x + TRACK_RADIUS * Mathf.Cos(radianAngle),
+                    transform.position.y,
+                    _wheel.position.z + TRACK_RADIUS * Mathf.Sin(radianAngle)
+                );
+                yield return null;
+            }
+
+            while (Vector3.Distance(transform.position, _targetPocket.position) > POCKET_DISTANCE_THRESHOLD)
+            {
+                _angle -= _currentSpinSpeed * Time.deltaTime * 100f;
+                float radianAngle = _angle * Mathf.Deg2Rad;
+                transform.position = new Vector3(
+                    _wheel.position.x + TRACK_RADIUS * Mathf.Cos(radianAngle),
+                    transform.position.y,
+                    _wheel.position.z + TRACK_RADIUS * Mathf.Sin(radianAngle)
+                );
+                yield return null;
+            }
+        }
+
+        private IEnumerator DropBallRoutine()
+        {
+            float elapsedTime = 0f;
+            Vector3 startPosition = transform.position;
+            Vector3 dropDirection = (startPosition - _wheel.position).normalized;
+            Vector3 finalPosition = _wheel.position + dropDirection * DROP_RADIUS;
+            finalPosition.y -= DROP_HEIGHT_OFFSET;
+
+            float initialHeight = startPosition.y;
+            float targetHeight = finalPosition.y;
+
+            while (elapsedTime < DROP_DURATION)
+            {
+                float progress = elapsedTime / DROP_DURATION;
+                float bounceOffset = BOUNCE_FORCE * Mathf.Sin(4 * Mathf.PI * progress) * Mathf.Exp(-3 * progress);
+                Vector3 newPosition = Vector3.Lerp(startPosition, finalPosition, progress);
+                newPosition.y = Mathf.Lerp(initialHeight, targetHeight, progress) + bounceOffset;
+                transform.position = newPosition;
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = finalPosition;
+            transform.parent = _targetPocket;
+            OnBallStopped?.Invoke();
         }
     }
 }
