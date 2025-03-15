@@ -2,9 +2,15 @@
     "name": "GameManager",
     "rootNamespace": "",
     "references": [
-        "GUID:eef68eee58244ce4a8637933c6519b1a",
         "GUID:361e85af4a5ffb44e8e6e4c907ad0b7a",
-        "GUID:c9f33c7433b28cc47bc97c0aba91b7e3"
+        "GUID:375e1fcfe6b012844adc70052c7d5aa1",
+        "GUID:872c4f3986faa9d448704365d1a446c2",
+        "GUID:4bd77f089d14c214f859751c9839d128",
+        "GUID:4dbeb42cc407b1742924b849651917c4",
+        "GUID:eef68eee58244ce4a8637933c6519b1a",
+        "GUID:c9f33c7433b28cc47bc97c0aba91b7e3",
+        "GUID:87a36e6b6f21d454c8cbb9856f1cef04",
+        "GUID:d99e02fe3c99e5d44a74b4f971b9dccd"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

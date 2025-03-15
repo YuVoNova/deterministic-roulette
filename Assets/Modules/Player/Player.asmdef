@@ -1,0 +1,4 @@
+{
+	"name": "Player",
+	"references":[ "GUID:6678cb0a228695542ae55e12da78ef2e", "GUID:4bd77f089d14c214f859751c9839d128", "GUID:4dbeb42cc407b1742924b849651917c4" ]
+}

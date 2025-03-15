@@ -1,9 +1,10 @@
 using System.Collections;
+using Context.Interfaces;
 using UnityEngine;
 
 namespace Context
 {
-    public class CoroutineService : ICoroutineService
+    public class CoroutineService : ICoroutineService, IDisposableObject
     {
         private readonly GameObject _serviceObject;
         private readonly CoroutineExecutor _coroutineExecutor;

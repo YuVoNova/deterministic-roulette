@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Context.Interfaces;
 using UnityEngine;
 
 namespace Context
 {
-    public class LifeCycleCallbacksService : ILifeCycleCallbacksService
+    public class LifeCycleCallbacksService : ILifeCycleCallbacksService, IDisposableObject
     {
         private readonly GameObject _serviceObject;
         private readonly MonoBehaviourCallbacks _monoBehaviourCallbacks;
@@ -87,7 +88,7 @@ namespace Context
             private void Dispatch(CallbackType eventType)
             {
                 HashSet<Action> hashSetToDispatch = GetHashSet(eventType);
-                
+
                 foreach (Action action in hashSetToDispatch)
                 {
                     action.Invoke();
