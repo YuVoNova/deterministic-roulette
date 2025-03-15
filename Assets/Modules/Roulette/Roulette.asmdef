@@ -1,0 +1,16 @@
+{
+    "name": "Roulette",
+    "rootNamespace": "",
+    "references": [
+        "GUID:eef68eee58244ce4a8637933c6519b1a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
