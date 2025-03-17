@@ -53,7 +53,7 @@ namespace GameManager
             _contextManager = new ContextManager();
 
             _rouletteModule = new RouletteModule();
-            _bettingModule = new BettingModule();
+            _bettingModule = new BettingModule(_contextManager.DataStore);
             _playerModule = new PlayerModule(_contextManager.FileService);
             
             _isGameStarted = true;

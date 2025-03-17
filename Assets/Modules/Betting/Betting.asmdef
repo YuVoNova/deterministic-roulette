@@ -1,4 +1,23 @@
 {
-	"name": "Betting",
-	"references":[ "GUID:4bd77f089d14c214f859751c9839d128" ]
+    "name": "Betting",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4bd77f089d14c214f859751c9839d128",
+        "GUID:375e1fcfe6b012844adc70052c7d5aa1",
+        "GUID:872c4f3986faa9d448704365d1a446c2",
+        "GUID:4dbeb42cc407b1742924b849651917c4",
+        "GUID:6678cb0a228695542ae55e12da78ef2e",
+        "GUID:a64bf3149d115a3429505af897f34ffc",
+        "GUID:eef68eee58244ce4a8637933c6519b1a",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
