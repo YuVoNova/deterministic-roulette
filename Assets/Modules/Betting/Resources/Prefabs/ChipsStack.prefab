@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5361511954120313003}
   m_Layer: 0
-  m_Name: SelectedSpritePoint
+  m_Name: SelectedObjectParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ Transform:
   m_GameObject: {fileID: 4609189217507374955}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: 0, y: 1.75, z: 1.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -300,7 +300,7 @@ MonoBehaviour:
   - {fileID: 7554375799049109478}
   - {fileID: 3461444892600998136}
   chipValueText: {fileID: 3831171651196839205}
-  selectedChipParent: {fileID: 5361511954120313003}
+  selectedObjectParent: {fileID: 5361511954120313003}
 --- !u!1 &7128480615132522010
 GameObject:
   m_ObjectHideFlags: 0

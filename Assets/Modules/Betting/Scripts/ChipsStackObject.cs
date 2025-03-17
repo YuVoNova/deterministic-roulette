@@ -10,14 +10,13 @@ namespace Betting
 {
     public class ChipsStackObject : MonoBehaviour, IDisposableObject, IPointerDownHandler
     {
-        public event Action<ChipSO> OnChipSelected;
+        public event Action<ChipSO, Transform> OnChipSelected;
 
         [SerializeField] private ChipSO chipSO;
         [SerializeField] private ChipObject[] chipObjects;
         [SerializeField] private TMP_Text chipValueText;
-        
-        public Transform selectedChipParent;
-        
+        [SerializeField] private Transform selectedObjectParent;
+
         private void Awake()
         {
             foreach (ChipObject chipObject in chipObjects)
@@ -25,7 +24,7 @@ namespace Betting
                 chipObject.SetChip(chipSO);
                 chipObject.RotateChip();
             }
-            
+
             chipValueText.text = "$" + chipSO.ChipValue;
         }
 
@@ -37,7 +36,12 @@ namespace Betting
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            OnChipSelected?.Invoke(chipSO);
+            SelectChip();
+        }
+
+        public void SelectChip()
+        {
+            OnChipSelected?.Invoke(chipSO, selectedObjectParent);
         }
     }
 }

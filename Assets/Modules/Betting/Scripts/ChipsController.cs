@@ -7,12 +7,13 @@ namespace Betting
     public class ChipsController : IDisposableObject
     {
         private readonly IChipsView _view;
-        
+
         private ChipSO _selectedChip;
-        
+
         public ChipsController()
         {
             _view = GameObject.FindObjectOfType<ChipsView>();
+            _view.Init();
             _view.OnChipSelected += ChipSelected;
         }
 
@@ -20,11 +21,11 @@ namespace Betting
         {
             if (_view == null)
                 return;
-            
+
             _view.OnChipSelected -= ChipSelected;
             _view.Dispose();
         }
-        
+
         private void ChipSelected(ChipSO chipSO)
         {
             _selectedChip = chipSO;

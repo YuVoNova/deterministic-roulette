@@ -14,6 +14,7 @@ namespace Betting
         
         private readonly DataStore _dataStore;
         private readonly IBettingView _view;
+        private readonly BettingUIController _bettingUIController;
         private readonly List<BetSlotData> _activeBets = new List<BetSlotData>();
 
         public BettingController(DataStore dataStore)
@@ -22,12 +23,26 @@ namespace Betting
             _view = GameObject.FindObjectOfType<BettingView>();
             _view.Init();
             _view.OnSlotClicked += SlotClicked;
-            _view.OnSpinBallClicked += SpinBallClicked;
+            
+            _bettingUIController = new BettingUIController();
+            _bettingUIController.OnSpinButtonClicked += SpinButtonClicked;
+            _bettingUIController.OnClearBetsButtonClicked += ClearBetsButtonClicked;
         }
 
         public void Dispose()
         {
-            _view?.Dispose();
+            if (_view != null)
+            {
+                _view.OnSlotClicked -= SlotClicked;
+                _view.Dispose();
+            }
+            
+            if (_bettingUIController != null)
+            {
+                _bettingUIController.OnSpinButtonClicked -= SpinButtonClicked;
+                _bettingUIController.OnClearBetsButtonClicked -= ClearBetsButtonClicked;
+                _bettingUIController.Dispose();
+            }
         }
 
         public void ResolveBets(int resultNumber)
@@ -109,12 +124,17 @@ namespace Betting
             
         }
         
-        private void SpinBallClicked()
+        private void SpinButtonClicked()
         {
             if (_activeBets.Count == 0)
                 return;
             
             OnSpinBallClicked?.Invoke();
+        }
+
+        private void ClearBetsButtonClicked()
+        {
+            
         }
     }
 }

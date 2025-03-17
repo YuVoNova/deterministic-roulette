@@ -2,7 +2,6 @@ using System;
 using Betting.Data;
 using Context.Interfaces;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Betting
@@ -10,7 +9,6 @@ namespace Betting
     public interface IBettingView : IDisposableObject, IInitializableObject
     {
         event Action<BetType, int> OnSlotClicked;
-        event Action OnSpinBallClicked;
 
         void ClearBetDisplay();
     }
@@ -18,7 +16,6 @@ namespace Betting
     public class BettingView : MonoBehaviour, IBettingView
     {
         public event Action<BetType, int> OnSlotClicked;
-        public event Action OnSpinBallClicked;
 
         [SerializeField] private SlotObject[] slotObjects;
         [SerializeField] private Material defaultMaterial;
