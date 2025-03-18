@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409a6e1c635c40ae8196a986f5ffc98e, type: 3}
   m_Name: Chip_5
   m_EditorClassIdentifier: 
+  ChipId: 5
   ChipValue: 250
   ChipMaterial: {fileID: 2100000, guid: eec854f6c051ca144a23b0cf5ea47bb2, type: 2}

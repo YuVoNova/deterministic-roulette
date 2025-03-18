@@ -14,19 +14,16 @@ namespace Betting
         public event Action<SlotObject> OnHoverExit;
 
         [SerializeField] private Renderer highlightRenderer;
+        [SerializeField] private GameObject betAmountCanvas;
         [SerializeField] private TMP_Text betAmountText;
         [SerializeField] private ChipObject chipObject;
         [SerializeField] private Collider collider;
-
-        private GameObject _betAmountTextObject;
 
         [HideInInspector] public BetType betType;
         [HideInInspector] public int slotId;
 
         private void Awake()
         {
-            _betAmountTextObject = betAmountText.gameObject;
-
             string[] slotName = transform.name.Split('_');
             betType = (BetType)Enum.Parse(typeof(BetType), slotName[0]);
             slotId = int.Parse(slotName[1]);
@@ -47,8 +44,8 @@ namespace Betting
                 chipObject.gameObject.SetActive(true);
 
             betAmountText.text = amount.ToString();
-            if (!_betAmountTextObject.activeSelf)
-                _betAmountTextObject.SetActive(true);
+            if (!betAmountCanvas.activeSelf)
+                betAmountCanvas.SetActive(true);
         }
 
         public void ResetSlot()
@@ -56,7 +53,7 @@ namespace Betting
             chipObject.gameObject.SetActive(false);
 
             betAmountText.text = "0";
-            _betAmountTextObject.SetActive(false);
+            betAmountCanvas.SetActive(false);
         }
 
         public void HighlightSlot(Material material)

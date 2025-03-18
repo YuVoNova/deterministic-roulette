@@ -60,7 +60,7 @@ namespace Betting
             clearBetsButton.onClick.RemoveListener(ClearBetsButtonClicked);
             deterministicResultToggle.onValueChanged.RemoveListener(ToggleDeterministicResult);
 
-            if (gameObject != null)
+            if (this != null)
                 Destroy(gameObject);
         }
 
@@ -78,8 +78,8 @@ namespace Betting
 
         public void ToggleButtons(bool isOn)
         {
-            spinButton.interactable = isOn;
-            clearBetsButton.interactable = isOn;
+            spinButton.gameObject.SetActive(isOn);
+            clearBetsButton.gameObject.SetActive(isOn);
             deterministicResultPanel.SetActive(isOn);
         }
         

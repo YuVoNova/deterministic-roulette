@@ -93,6 +93,7 @@ namespace Betting
             _totalBetAmount += _selectedChip.ChipValue;
             _bettingUIController.SetActiveBetsText(_totalBetAmount);
             slotObject.AddBet(_selectedChip, newBetAmount);
+            SetActiveBets();
         }
         
         private void SpinButtonClicked(int result)
@@ -117,12 +118,21 @@ namespace Betting
             _activeBets.Clear();
             _bettingUIController.SetActiveBetsText(_totalBetAmount);
             _view.ClearBetDisplay();
+            SetActiveBets();
         }
         
         private void ResultFinished()
         {
+            int money = _dataStore.playerData.Get().Money;
+            
             _view.ToggleSlots(true);
-            // TODO -> Unlock the betting and spinning, update the player money amount
+            _bettingUIController.SetMoneyText(money);
+        }
+
+        private void SetActiveBets()
+        {
+            PlayerData playerData = _dataStore.playerData.Get();
+            playerData.SetActiveBets(_activeBets.ToArray());
         }
     }
 }

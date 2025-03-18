@@ -28,6 +28,11 @@ namespace Betting
             _view.OnChipSelected -= ChipSelected;
             _view.Dispose();
         }
+        
+        public void InitialSelectedChip(int initialSelectedChipId)
+        {
+            _view.InitialSelectedChip(initialSelectedChipId);
+        }
 
         private void ChipSelected(ChipSO chipSO)
         {

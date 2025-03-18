@@ -4,7 +4,6 @@ using Context.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 namespace Betting
 {

@@ -8,20 +8,20 @@ namespace Player.Data
     public class PlayerData
     {
         public const int DEFAULT_MONEY = 10000;
+        public const int DEFAULT_SELECTED_CHIP_ID = 0;
 
         public int Money => _money;
+        public int SelectedChipId => _selectedChipId;
 
         [SerializeField] private int _money;
+        [SerializeField] private int _selectedChipId;
         [SerializeField] private BetSlotData[] _activeBets;
 
         public PlayerData()
         {
             _money = DEFAULT_MONEY;
-        }
-        
-        public PlayerData(int money)
-        {
-            _money = money;
+            _selectedChipId = DEFAULT_SELECTED_CHIP_ID;
+            _activeBets = null;
         }
 
         public override string ToString()
@@ -46,6 +46,16 @@ namespace Player.Data
 
             _money -= amount;
             return true;
+        }
+        
+        public void SetSelectedChipId(int selectedChipId)
+        {
+            _selectedChipId = selectedChipId;
+        }
+        
+        public void SetActiveBets(BetSlotData[] activeBets)
+        {
+            _activeBets = activeBets;
         }
     }
 }

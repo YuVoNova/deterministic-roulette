@@ -8,6 +8,8 @@ namespace Betting
     public interface IChipsView : IDisposableObject, IInitializableObject
     {
         event Action<ChipSO> OnChipSelected;
+        
+        void InitialSelectedChip(int initialSelectedChipId);
     }
 
     public class ChipsView : MonoBehaviour, IChipsView
@@ -17,17 +19,12 @@ namespace Betting
         [SerializeField] private ChipsStackObject[] chipsStacks;
         [SerializeField] private Transform selectedObject;
 
-        private void Awake()
+        public void Init()
         {
             foreach (ChipsStackObject chipsStack in chipsStacks)
             {
                 chipsStack.OnChipSelected += ChipSelected;
             }
-        }
-
-        public void Init()
-        {
-            chipsStacks[0].SelectChip();
         }
 
         public void Dispose()
@@ -36,6 +33,11 @@ namespace Betting
             {
                 chipsStack.OnChipSelected -= ChipSelected;
             }
+        }
+        
+        public void InitialSelectedChip(int initialSelectedChipId)
+        {
+            chipsStacks[initialSelectedChipId].SelectChip();
         }
 
         private void ChipSelected(ChipSO chipSO, Transform selectedObjectParent)

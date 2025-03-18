@@ -4,6 +4,7 @@ using Roulette;
 using Betting;
 using Betting.Data;
 using Player;
+using Player.Data;
 using Utils;
 
 namespace GameManager
@@ -76,7 +77,7 @@ namespace GameManager
             int result = deterministicResult;
             if (result is < Const.MIN_POCKET_VALUE or > Const.MAX_POCKET_VALUE)
                 result = Random.Range(Const.MIN_POCKET_VALUE, Const.MAX_POCKET_VALUE + 1);
-
+            
             _bettingModule.ResolveBets(result);
             _rouletteModule.SpinBall(result);
         }
@@ -84,6 +85,8 @@ namespace GameManager
         private void BetResolved(BetResultData betResultData)
         {
             _betResultData = betResultData;
+            PlayerData playerData = _contextManager.DataStore.playerData.Get();
+            playerData.AddMoney(betResultData.WinAmount);
         }
 
         private void BallStopped()
