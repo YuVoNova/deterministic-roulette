@@ -26,6 +26,9 @@ namespace Betting
             
             int initialSelectedChipId = _dataStore.playerData.Get().SelectedChipId;
             _chipsController.InitialSelectedChip(initialSelectedChipId);
+            
+            BetSlotData[] activeBets = _dataStore.playerData.Get().ActiveBets;
+            _bettingController.InitializeActiveBets(activeBets);
         }
 
         public void Dispose()

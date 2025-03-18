@@ -12,6 +12,7 @@ namespace Player.Data
 
         public int Money => _money;
         public int SelectedChipId => _selectedChipId;
+        public BetSlotData[] ActiveBets => _activeBets;
 
         [SerializeField] private int _money;
         [SerializeField] private int _selectedChipId;

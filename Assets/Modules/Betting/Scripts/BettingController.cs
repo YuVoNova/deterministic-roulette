@@ -65,6 +65,23 @@ namespace Betting
             return _activeBets;
         }
         
+        public void InitializeActiveBets(BetSlotData[] activeBets)
+        {
+            if (activeBets == null)
+                return;
+
+            _activeBets.Clear();
+            foreach (BetSlotData betSlotData in activeBets)
+            {
+                SlotObject slotObject = _view.GetSlotObject(betSlotData.BetType, betSlotData.SlotId);
+                slotObject.AddBet(_selectedChip, betSlotData.BetAmount);
+                _totalBetAmount += betSlotData.BetAmount;
+                _activeBets.Add(betSlotData);
+            }
+
+            _bettingUIController.SetActiveBetsText(_totalBetAmount);
+        }
+        
         private void SlotClicked(SlotObject slotObject)
         {
             if (_selectedChip == null)
@@ -93,7 +110,7 @@ namespace Betting
             _totalBetAmount += _selectedChip.ChipValue;
             _bettingUIController.SetActiveBetsText(_totalBetAmount);
             slotObject.AddBet(_selectedChip, newBetAmount);
-            SetActiveBets();
+            RecordActiveBetChanges();
         }
         
         private void SpinButtonClicked(int result)
@@ -118,7 +135,7 @@ namespace Betting
             _activeBets.Clear();
             _bettingUIController.SetActiveBetsText(_totalBetAmount);
             _view.ClearBetDisplay();
-            SetActiveBets();
+            RecordActiveBetChanges();
         }
         
         private void ResultFinished()
@@ -129,7 +146,7 @@ namespace Betting
             _bettingUIController.SetMoneyText(money);
         }
 
-        private void SetActiveBets()
+        private void RecordActiveBetChanges()
         {
             PlayerData playerData = _dataStore.playerData.Get();
             playerData.SetActiveBets(_activeBets.ToArray());

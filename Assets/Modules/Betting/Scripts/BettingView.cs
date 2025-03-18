@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Betting.Data;
 using Context.Interfaces;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Betting
 
         void ClearBetDisplay();
         void ToggleSlots(bool isOn);
+        SlotObject GetSlotObject(BetType betType, int slotId);
     }
 
     public class BettingView : MonoBehaviour, IBettingView
@@ -60,6 +62,11 @@ namespace Betting
             {
                 slotObject.ToggleSlot(isOn);
             }
+        }
+
+        public SlotObject GetSlotObject(BetType betType, int slotId)
+        {
+            return slotObjects.FirstOrDefault(slotObject => slotObject.betType == betType && slotObject.slotId == slotId);
         }
 
         private void SlotClicked(SlotObject slotObject)
