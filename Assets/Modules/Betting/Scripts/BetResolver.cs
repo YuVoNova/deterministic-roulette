@@ -83,6 +83,7 @@ namespace Betting
                 resultColor = BetConfig.RedNumbers.Contains(resultNumber) ? SlotColors.Red : SlotColors.Black;
             
             BetResultData betResultData = new BetResultData(activeBets.ToArray(), resultNumber, resultColor, totalWinAmount);
+            betResultData.CalculateBalanceAmount();
             return betResultData;
         }
     }

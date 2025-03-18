@@ -12,7 +12,6 @@ namespace Betting
         public const string HIGH_BET = "High";
         public const string LOW_BET = "Low";
 
-        public const int MIN_BET_AMOUNT = 5;
         public const int MAX_BET_AMOUNT = 250;
         public const int TOTAL_BET_LIMIT = 1000;
         

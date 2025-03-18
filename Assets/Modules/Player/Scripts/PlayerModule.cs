@@ -7,7 +7,6 @@ namespace Player
     public class PlayerModule : IDisposableObject
     {
         private readonly PlayerDataHandler _playerDataHandler;
-
         private readonly PlayerData _playerData;
 
         public PlayerModule(IFileService fileService, DataStore dataStore)
@@ -21,10 +20,9 @@ namespace Player
         public void Dispose()
         {
             Save();
-            _playerDataHandler.Dispose();
         }
 
-        public void Save()
+        private void Save()
         {
             _playerDataHandler.SaveData(_playerData);
         }

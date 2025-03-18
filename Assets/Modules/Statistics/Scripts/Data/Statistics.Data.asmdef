@@ -1,0 +1,16 @@
+{
+    "name": "Statistics.Data",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a64bf3149d115a3429505af897f34ffc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -133,7 +133,6 @@ namespace Roulette
                 float currentDistance = Vector3.Distance(ballPos, _targetPocket.position);
                 float distanceDelta = currentDistance - previousDistance;
                 bool isApproaching = (distanceDelta < 0);
-                Debug.Log(currentDistance);
 
                 if (currentDistance is <= MAX_POCKET_DISTANCE_THRESHOLD and >= MIN_POCKET_DISTANCE_THRESHOLD && isApproaching)
                     break;
