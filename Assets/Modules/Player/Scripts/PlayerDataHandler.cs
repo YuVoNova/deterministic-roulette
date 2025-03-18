@@ -1,10 +1,9 @@
 using Context;
-using Context.Interfaces;
 using Player.Data;
 
 namespace Player
 {
-    public class PlayerDataHandler : IDisposableObject
+    public class PlayerDataHandler
     {
         private const string FILE_NAME = "PlayerData.json";
         
@@ -15,15 +14,9 @@ namespace Player
             _fileService = fileService;
         }
         
-        public void Dispose()
-        {
-            
-        }
-        
         public PlayerData LoadData()
         {
             string fileData = _fileService.Load(FILE_NAME);
-
             if (string.IsNullOrEmpty(fileData) || fileData.Trim() == "{}")
             {
                 return new PlayerData();

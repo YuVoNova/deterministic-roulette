@@ -11,7 +11,7 @@ namespace Betting.Data
         public SlotColors ResultColor;
         public int WinAmount;
         public int TotalBetAmount;
-        public int ProfitAmount;
+        public int BalanceAmount;
         
         public BetResultData(BetSlotData[] betSlots, int resultNumber, SlotColors resultColor, int winAmount)
         {
@@ -19,8 +19,12 @@ namespace Betting.Data
             ResultNumber = resultNumber;
             ResultColor = resultColor;
             WinAmount = winAmount;
+        }
+        
+        public void CalculateBalanceAmount()
+        {
             TotalBetAmount = CalculateTotalBetAmount();
-            ProfitAmount = WinAmount - TotalBetAmount;
+            BalanceAmount = WinAmount - TotalBetAmount;
         }
         
         private int CalculateTotalBetAmount()

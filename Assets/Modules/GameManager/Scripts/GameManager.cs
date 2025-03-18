@@ -5,6 +5,7 @@ using Betting;
 using Betting.Data;
 using Player;
 using Player.Data;
+using Statistics;
 using Utils;
 
 namespace GameManager
@@ -15,6 +16,7 @@ namespace GameManager
         private ISceneLoader _sceneLoader;
 
         private PlayerModule _playerModule;
+        private StatisticsModule _statisticsModule;
         private RouletteModule _rouletteModule;
         private BettingModule _bettingModule;
 
@@ -48,6 +50,7 @@ namespace GameManager
 
             _rouletteModule.Dispose();
             _bettingModule.Dispose();
+            _statisticsModule.Dispose();
             _playerModule.Dispose();
 
             // We dispose context manager last because Statistics and Player modules uses FileService to save their data.
@@ -62,6 +65,7 @@ namespace GameManager
             _contextManager = new ContextManager();
 
             _playerModule = new PlayerModule(_contextManager.FileService, _contextManager.DataStore);
+            _statisticsModule = new StatisticsModule(_contextManager.FileService);
             _rouletteModule = new RouletteModule();
             _bettingModule = new BettingModule(_contextManager.DataStore);
 
@@ -87,6 +91,7 @@ namespace GameManager
             _betResultData = betResultData;
             PlayerData playerData = _contextManager.DataStore.playerData.Get();
             playerData.AddMoney(betResultData.WinAmount);
+            _statisticsModule.AddBetResult(_betResultData);
         }
 
         private void BallStopped()

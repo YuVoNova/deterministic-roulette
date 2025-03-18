@@ -48,12 +48,12 @@ namespace Player.Data
             _money -= amount;
             return true;
         }
-        
+
         public void SetSelectedChipId(int selectedChipId)
         {
             _selectedChipId = selectedChipId;
         }
-        
+
         public void SetActiveBets(BetSlotData[] activeBets)
         {
             _activeBets = activeBets;
