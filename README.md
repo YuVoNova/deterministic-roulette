@@ -4,8 +4,11 @@ This project is a case study for Joker Games, prepared by Yusuf Metindoğan. The
 
 ## Instructions
 The application launches from the InitScene, which functions as a bootstrapper. This scene initializes all the necessary modules and sets up the game environment. Please refer to the images below for detailed instructions on how to interact with the application.
+
 ![Instruction Image 1](InstructionImages/Image_0.png)
+
 ![Instruction Image 2](InstructionImages/Image_1.png)
+
 ![Instruction Image 3](InstructionImages/Image_2.png)
 
 ## Unity Registry Packages Used
