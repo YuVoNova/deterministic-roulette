@@ -16,7 +16,6 @@ namespace Roulette
 
     public class BallView : MonoBehaviour, IBallView
     {
-        private const float BOUNCE_FORCE = 0.5f;
         private const float SPIN_SPEED = 5f;
         private const float SPIN_DURATION = 3f;
         private const float DROP_DURATION = 1.5f;
