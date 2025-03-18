@@ -22,8 +22,9 @@ namespace Roulette
         private const float DROP_DURATION = 1.5f;
         private const float TRACK_RADIUS = 5.6f;
         private const float DROP_RADIUS = 3.075f;
-        private const float MIN_SPIN_SPEED = 1f;
-        private const float POCKET_DISTANCE_THRESHOLD = 3.75f;
+        private const float MIN_SPIN_SPEED = 0.85f;
+        private const float MIN_POCKET_DISTANCE_THRESHOLD = 3.65f;
+        private const float MAX_POCKET_DISTANCE_THRESHOLD = 3.75f;
         private const float DROP_HEIGHT_OFFSET = 0.25f;
 
         public event Action OnBallStopped;
@@ -51,7 +52,7 @@ namespace Roulette
         {
             if (this == null)
                 return;
-            
+
             StopAllCoroutines();
             Destroy(gameObject);
         }
@@ -94,6 +95,7 @@ namespace Roulette
 
         private IEnumerator TransitionRoutine()
         {
+            // Phase A: Deceleration Phase
             _currentSpinSpeed = SPIN_SPEED;
             while (_currentSpinSpeed > MIN_SPIN_SPEED)
             {
@@ -108,15 +110,28 @@ namespace Roulette
                 yield return null;
             }
 
-            while (Vector3.Distance(transform.position, _targetPocket.position) > POCKET_DISTANCE_THRESHOLD)
+            // Phase B: Pocket Tracking Phase
+            // Wait until the ball is within the distance threshold, and the target pocket is still ahead.
+            float previousDistance = Vector3.Distance(transform.position, _targetPocket.position);
+            while (true)
             {
                 _angle -= _currentSpinSpeed * Time.deltaTime * 100f;
                 float radianAngle = _angle * Mathf.Deg2Rad;
-                transform.position = new Vector3(
+                Vector3 ballPos = new Vector3(
                     _wheel.position.x + TRACK_RADIUS * Mathf.Cos(radianAngle),
                     transform.position.y,
                     _wheel.position.z + TRACK_RADIUS * Mathf.Sin(radianAngle)
                 );
+                transform.position = ballPos;
+
+                float currentDistance = Vector3.Distance(ballPos, _targetPocket.position);
+                float distanceDelta = currentDistance - previousDistance;
+                bool isApproaching = (distanceDelta < 0);
+
+                if (currentDistance is <= MAX_POCKET_DISTANCE_THRESHOLD and >= MIN_POCKET_DISTANCE_THRESHOLD && isApproaching)
+                    break;
+
+                previousDistance = currentDistance;
                 yield return null;
             }
         }

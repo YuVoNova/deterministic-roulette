@@ -70,6 +70,8 @@ namespace GameManager
             _rouletteModule.OnBallStopped += BallStopped;
 
             _isGameStarted = true;
+            // TEST
+            GenerateResultAndSpinBall();
         }
 
         private void GenerateResultAndSpinBall(int deterministicResult = -1)
