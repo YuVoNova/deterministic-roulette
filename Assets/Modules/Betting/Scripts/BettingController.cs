@@ -104,8 +104,9 @@ namespace Betting
             if (!playerData.WithdrawMoney(_totalBetAmount))
                 return;
             
+            _view.ToggleSlots(false);
             _bettingUIController.SetMoneyText(playerData.Money);
-            // TODO -> Lock the betting and spinning until the result is finished
+            _bettingUIController.SpinStarted();
             
             OnSpinBallClicked?.Invoke(result);
         }
@@ -120,6 +121,7 @@ namespace Betting
         
         private void ResultFinished()
         {
+            _view.ToggleSlots(true);
             // TODO -> Unlock the betting and spinning, update the player money amount
         }
     }

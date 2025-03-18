@@ -16,6 +16,7 @@ namespace Betting
         [SerializeField] private Renderer highlightRenderer;
         [SerializeField] private TMP_Text betAmountText;
         [SerializeField] private ChipObject chipObject;
+        [SerializeField] private Collider collider;
 
         private GameObject _betAmountTextObject;
 
@@ -61,6 +62,11 @@ namespace Betting
         public void HighlightSlot(Material material)
         {
             highlightRenderer.material = material;
+        }
+
+        public void ToggleSlot(bool isOn)
+        {
+            collider.enabled = isOn;
         }
 
         public void OnPointerEnter(PointerEventData eventData)

@@ -305,6 +305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204228504}
+  - component: {fileID: 204228505}
   m_Layer: 5
   m_Name: BettingPanel
   m_TagString: Untagged
@@ -326,8 +327,8 @@ RectTransform:
   m_Children:
   - {fileID: 1397385074}
   - {fileID: 831459713}
-  - {fileID: 1705946597}
   - {fileID: 1372147730}
+  - {fileID: 1705946597}
   - {fileID: 1362264036}
   m_Father: {fileID: 838806495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -336,6 +337,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &204228505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204228503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e365c5f9d84dabae659f147a226a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinButton: {fileID: 1372147731}
+  clearBetsButton: {fileID: 1705946594}
+  moneyText: {fileID: 1080622993}
+  activeBetsText: {fileID: 556213620}
+  deterministicResultPanel: {fileID: 1362264035}
+  deterministicResultToggle: {fileID: 530758935}
+  resultInputField: {fileID: 1402181948}
 --- !u!1 &230106563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2105,7 +2125,6 @@ GameObject:
   - component: {fileID: 838806494}
   - component: {fileID: 838806493}
   - component: {fileID: 838806492}
-  - component: {fileID: 838806496}
   m_Layer: 5
   m_Name: BettingUI
   m_TagString: Untagged
@@ -2197,24 +2216,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &838806496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838806491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7e365c5f9d84dabae659f147a226a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spinButton: {fileID: 1372147731}
-  clearBetsButton: {fileID: 1705946594}
-  moneyText: {fileID: 1080622993}
-  activeBetsText: {fileID: 556213620}
-  deterministicResultToggle: {fileID: 530758935}
-  resultInputField: {fileID: 1402181948}
 --- !u!850595691 &842152490
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -4078,9 +4079,6 @@ MonoBehaviour:
   resultNumberImage: {fileID: 1628191501}
   resultNumberText: {fileID: 1497752594}
   payoutText: {fileID: 427164760}
-  greenColor: {r: 0, g: 0.4716981, b: 0.06296072, a: 0}
-  redColor: {r: 0.5633422, g: 0, b: 0, a: 0}
-  blackColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1637253413
 GameObject:
   m_ObjectHideFlags: 0

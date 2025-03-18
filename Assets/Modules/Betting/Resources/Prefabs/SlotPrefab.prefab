@@ -223,6 +223,7 @@ MonoBehaviour:
   highlightRenderer: {fileID: 6254218822217254621}
   betAmountText: {fileID: 997996827550560917}
   chipObject: {fileID: 3216431111762997284}
+  collider: {fileID: 9147369693695391315}
   betType: 0
   slotId: 0
 --- !u!33 &8898016225606286869

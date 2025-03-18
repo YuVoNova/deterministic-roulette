@@ -11,6 +11,7 @@ namespace Betting
         event Action<SlotObject> OnSlotClicked;
 
         void ClearBetDisplay();
+        void ToggleSlots(bool isOn);
     }
 
     public class BettingView : MonoBehaviour, IBettingView
@@ -50,6 +51,14 @@ namespace Betting
             foreach (SlotObject slotObject in slotObjects)
             {
                 slotObject.ResetSlot();
+            }
+        }
+
+        public void ToggleSlots(bool isOn)
+        {
+            foreach (SlotObject slotObject in slotObjects)
+            {
+                slotObject.ToggleSlot(isOn);
             }
         }
 

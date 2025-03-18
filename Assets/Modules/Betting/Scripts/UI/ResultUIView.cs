@@ -12,7 +12,7 @@ namespace Betting
         event Action OnResultFinished;
         
         void ShowResult(BetResultData betResultData);
-        void HideResult();
+        void ToggleUI(bool isOn);
     }
     
     public class ResultUIView : MonoBehaviour, IResultUIView
@@ -47,13 +47,13 @@ namespace Betting
                 SlotColors.Black => Const.BLACK_COLOR,
                 _ => resultNumberImage.color
             };
-            payoutText.text = "Profit: " + betResultData.ProfitAmount;
+            payoutText.text = "Payout: " + betResultData.WinAmount;
             gameObject.SetActive(true);
             
             _timer = RESULT_DISPLAY_TIME;
         }
 
-        public void HideResult()
+        public void ToggleUI(bool isOn)
         {
             gameObject.SetActive(false);
         }

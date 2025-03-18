@@ -14,6 +14,8 @@ namespace Betting
 
         void SetMoneyText(int amount);
         void SetActiveBetsText(int amount);
+        void ToggleButtons(bool isOn);
+        void ToggleUI(bool isOn);
     }
 
     public class BettingUIView : MonoBehaviour, IBettingUIView
@@ -27,6 +29,7 @@ namespace Betting
         [SerializeField] private Button clearBetsButton;
         [SerializeField] private TMP_Text moneyText;
         [SerializeField] private TMP_Text activeBetsText;
+        [SerializeField] private GameObject deterministicResultPanel;
         [SerializeField] private Toggle deterministicResultToggle;
         [SerializeField] private TMP_InputField resultInputField;
 
@@ -63,7 +66,6 @@ namespace Betting
 
         public void SetMoneyText(int amount)
         {
-            Debug.Log(amount);
             _targetMoney = amount;
             _moneyStep = Mathf.Abs(_targetMoney - _currentMoney) / MONEY_DURATION;
         }
@@ -72,6 +74,18 @@ namespace Betting
         {
             string text = amount.ToString("N0");
             activeBetsText.text = "Active Bets: $" + text;
+        }
+
+        public void ToggleButtons(bool isOn)
+        {
+            spinButton.interactable = isOn;
+            clearBetsButton.interactable = isOn;
+            deterministicResultPanel.SetActive(isOn);
+        }
+        
+        public void ToggleUI(bool isOn)
+        {
+            gameObject.SetActive(isOn);
         }
 
         private void ShowMoneyAmount(int amount)
