@@ -1,8 +1,12 @@
 # Roulette Game Case Study
 
-This project is a case study for Joker Games, prepared by Yusuf Metindoğan. The objective is to develop a 3D deterministic roulette prototype in Unity that demonstrates a modular coding structure designed for ease of maintenance and unit testing using Unity's TestRunner.
+This project is a case study for Joker Games, prepared by Yusuf Metindoğan. The objective is to develop a 3D deterministic roulette prototype in Unity that demonstrates a modular coding structure designed for ease of maintenance and testing.
 
-## Unity Packages Used
+## Instructions
+The application launches from the InitScene, which functions as a bootstrapper. This scene initializes all the necessary modules and sets up the game environment. Please refer to the images below for detailed instructions on how to interact with the application.
+
+
+## Unity Registry Packages Used
 - ProBuilder
 - 2D Sprite Editor
 
@@ -31,13 +35,15 @@ This modular design was chosen to simplify unit testing using Unity's TestRunner
 - **History Icon:** [Link](https://www.freepik.com/icon/clock-icon_11720326)
 
 ## Room for Improvement
+- **European Roulette Option:**
+  Due to the model constraints, American Roulette is not included. This could be implemented with a simple tweak in BetMapping if a more modular model is provided.
 - **Sound Effects:**  
   Time constraints prevented integrating sound effects. Future work would include proper audio feedback for spins, bets, and wins.
 - **Particle Effects & Lighting:**  
-  No particle effects or advanced lighting were implemented due to focus on structure and modular coding. This could be added to enhance the visual polish.
+  No particle effects or advanced lighting were implemented due to the focus on structure and modular coding. This could be added to enhance the visual polish.
 - **Additional Betting Options:**  
   Further refinement of bet types and validations could be explored.
 - **UI Animations:**  
   More sophisticated UI transitions and animations (beyond the basic flicker and oscillation) can be implemented.
-- **Extended Testing:**  
-  Although the modular structure was designed with testing in mind, time constraints prevented integration of unit tests. Extensive unit tests and integration tests would improve robustness.
+- **Unit Testing:**  
+  Although the modular structure was designed with testing in mind, time constraints prevented the integration of unit tests. Extensive unit tests and integration tests would improve robustness.
