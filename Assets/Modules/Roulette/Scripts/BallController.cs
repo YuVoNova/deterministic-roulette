@@ -13,7 +13,6 @@ namespace Roulette
         {
             _view = GameObject.FindObjectOfType<BallView>();
             _view.Init(rotatingWheel, ballSpinPosition);
-            _view.Standby();
             _view.OnBallStopped += BallStopped;
         }
 

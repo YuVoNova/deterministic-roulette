@@ -10,7 +10,6 @@ namespace Roulette
         event Action OnBallStopped;
 
         void Init(Transform rotatingWheel, Vector3 ballSpinPosition);
-        void Standby();
         void StartBallSpin(Transform targetPocketTransform);
     }
 
@@ -63,10 +62,6 @@ namespace Roulette
             Destroy(gameObject);
         }
 
-        public void Standby()
-        {
-        }
-
         public void StartBallSpin(Transform targetPocketTransform)
         {
             _targetPocket = targetPocketTransform;
@@ -79,6 +74,7 @@ namespace Roulette
 
         private IEnumerator SpinBallRoutine()
         {
+            // Spin the ball for a set duration first.
             _currentSpinSpeed = SPIN_SPEED;
             float elapsedTime = 0f;
 
@@ -102,6 +98,7 @@ namespace Roulette
         private IEnumerator TransitionRoutine()
         {
             // Phase A: Deceleration Phase
+            // Decelerate the ball to a lower speed gradually.
             _currentSpinSpeed = SPIN_SPEED;
             while (_currentSpinSpeed > MIN_SPIN_SPEED)
             {
@@ -145,6 +142,7 @@ namespace Roulette
         private IEnumerator DropBallRoutine()
         {
             // Phase A: Drop Phase
+            // Target pocket is at a fixed distance, start dropping the ball.
             float elapsedTime = 0f;
             float initialHeight = transform.position.y;
             float targetHeight = initialHeight - DROP_HEIGHT_OFFSET;
@@ -179,6 +177,7 @@ namespace Roulette
             transform.localRotation = Quaternion.identity;
 
             // Phase B: Flicker (Oscillation) Phase
+            // Ball hits the target pocket, flicker the ball for a drop effect.
             elapsedTime = 0f;
             Vector3 originalLocalPos = transform.localPosition;
             Vector3 localDropDirection = _targetPocket.InverseTransformDirection(moveDirection).normalized;
