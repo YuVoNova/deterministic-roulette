@@ -2,7 +2,8 @@
     "name": "Roulette",
     "rootNamespace": "",
     "references": [
-        "GUID:eef68eee58244ce4a8637933c6519b1a"
+        "GUID:eef68eee58244ce4a8637933c6519b1a",
+        "GUID:4bd77f089d14c214f859751c9839d128"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

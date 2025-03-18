@@ -1,13 +1,12 @@
+using Context.Interfaces;
 using UnityEngine;
 
 namespace Roulette
 {
-    public interface IRouletteView
+    public interface IRouletteView : IDisposableObject
     {
         Vector3 BallSpinPosition { get; }
-
-        void Init();
-        void Dispose();
+        
         Transform GetPocket(int pocketValue);
         Transform GetRotatingWheel();
     }
@@ -20,16 +19,9 @@ namespace Roulette
 
         public Vector3 BallSpinPosition => ballSpinPoint.position;
 
-        public void Init()
-        {
-        }
-
         public void Dispose()
         {
             if (this != null)
-                return;
-
-            if (gameObject != null)
                 Destroy(gameObject);
         }
 

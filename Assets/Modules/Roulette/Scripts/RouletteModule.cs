@@ -31,13 +31,8 @@ namespace Roulette
             _rouletteController?.Dispose();
         }
 
-        public void SpinBall(int deterministicResult = -1)
+        public void SpinBall(int result)
         {
-            int result = deterministicResult;
-            if (result is < Const.MIN_POCKET_VALUE or > Const.MAX_POCKET_VALUE)
-                result = Random.Range(Const.MIN_POCKET_VALUE, Const.MAX_POCKET_VALUE + 1);
-
-            Debug.Log(result);
             Transform targetPocketTransform = _rouletteController.GetPocket(result);
             _ballController.SpinBall(targetPocketTransform);
         }
