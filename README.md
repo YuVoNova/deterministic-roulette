@@ -21,13 +21,14 @@ The project is divided into several modules:
 - **Betting Module:** Manages bet placement, validation, and payout calculations along with visual chip placement.
 - **Player Module:** Manages player data (money balance) and uses JSON for persistence.
 - **Statistics Module:** Tracks and displays play history and total balance.
+- **Context and Utils:** General purpose modules for constants, shared data, and services.
 
-This modular design was chosen to simplify testing using Unity's TestRunner and to ensure a clean separation of concerns.
+This modular design was chosen to simplify unit testing using Unity's TestRunner and to ensure a clean separation of concerns.
 
 ## External Assets Licensing
-- **Roulette Table Model:** [https://sketchfab.com/3d-models/roulette-table-5a881735972441a084fe71e0424df60b](https://sketchfab.com/3d-models/roulette-table-5a881735972441a084fe71e0424df60b)
-- **Casino Chips Model:** [https://www.cgtrader.com/free-3d-models/various/various-models/casino-chips-4a5f0873-833c-4c56-b799-671832e39e0a](https://www.cgtrader.com/free-3d-models/various/various-models/casino-chips-4a5f0873-833c-4c56-b799-671832e39e0a)
-- **History Icon:** [https://www.freepik.com/icon/clock-icon_11720326](https://www.freepik.com/icon/clock-icon_11720326)
+- **Roulette Table Model:** [Link](https://sketchfab.com/3d-models/roulette-table-5a881735972441a084fe71e0424df60b)
+- **Casino Chips Model:** [Link](https://www.cgtrader.com/free-3d-models/various/various-models/casino-chips-4a5f0873-833c-4c56-b799-671832e39e0a)
+- **History Icon:** [Link](https://www.freepik.com/icon/clock-icon_11720326)
 
 ## Room for Improvement
 - **Sound Effects:**  
@@ -39,4 +40,4 @@ This modular design was chosen to simplify testing using Unity's TestRunner and 
 - **UI Animations:**  
   More sophisticated UI transitions and animations (beyond the basic flicker and oscillation) can be implemented.
 - **Extended Testing:**  
-  Although the modular structure was designed with testing in mind, more extensive unit tests and integration tests would improve robustness.
+  Although the modular structure was designed with testing in mind, time constraints prevented integration of unit tests. Extensive unit tests and integration tests would improve robustness.
