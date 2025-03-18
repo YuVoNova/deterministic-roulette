@@ -70,8 +70,6 @@ namespace GameManager
             _rouletteModule.OnBallStopped += BallStopped;
 
             _isGameStarted = true;
-            // TEST
-            GenerateResultAndSpinBall();
         }
 
         private void GenerateResultAndSpinBall(int deterministicResult = -1)
@@ -79,7 +77,7 @@ namespace GameManager
             int result = deterministicResult;
             if (result is < Const.MIN_POCKET_VALUE or > Const.MAX_POCKET_VALUE)
                 result = Random.Range(Const.MIN_POCKET_VALUE, Const.MAX_POCKET_VALUE + 1);
-            
+
             _bettingModule.ResolveBets(result);
             _rouletteModule.SpinBall(result);
         }
