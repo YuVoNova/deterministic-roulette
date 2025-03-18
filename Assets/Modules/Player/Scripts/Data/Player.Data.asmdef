@@ -1,3 +1,4 @@
 {
-	"name": "Player.Data"
+	"name": "Player.Data",
+	"references":[ "GUID:a64bf3149d115a3429505af897f34ffc" ]
 }

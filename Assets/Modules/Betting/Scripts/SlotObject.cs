@@ -9,12 +9,13 @@ namespace Betting
 {
     public class SlotObject : MonoBehaviour, IDisposableObject, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
-        public event Action<BetType, int> OnSlotClicked;
+        public event Action<SlotObject> OnSlotClicked;
         public event Action<SlotObject> OnHoverEnter;
         public event Action<SlotObject> OnHoverExit;
 
         [SerializeField] private Renderer highlightRenderer;
         [SerializeField] private TMP_Text betAmountText;
+        [SerializeField] private ChipObject chipObject;
 
         private GameObject _betAmountTextObject;
 
@@ -38,16 +39,21 @@ namespace Betting
                 Destroy(gameObject);
         }
 
-        public void AddBet(int amount)
+        public void AddBet(ChipSO chip, int amount)
         {
-            betAmountText.text = amount.ToString();
+            chipObject.SetChip(chip);
+            if (!chipObject.gameObject.activeSelf)
+                chipObject.gameObject.SetActive(true);
 
+            betAmountText.text = amount.ToString();
             if (!_betAmountTextObject.activeSelf)
                 _betAmountTextObject.SetActive(true);
         }
 
         public void ResetSlot()
         {
+            chipObject.gameObject.SetActive(false);
+
             betAmountText.text = "0";
             _betAmountTextObject.SetActive(false);
         }
@@ -69,7 +75,7 @@ namespace Betting
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            OnSlotClicked?.Invoke(betType, slotId);
+            OnSlotClicked?.Invoke(this);
         }
     }
 }

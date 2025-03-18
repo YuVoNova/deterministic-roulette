@@ -1,11 +1,18 @@
 using Betting.Data;
+using Context.Interfaces;
 using UnityEngine;
 
 namespace Betting
 {
-    public class ChipObject : MonoBehaviour
+    public class ChipObject : MonoBehaviour, IDisposableObject
     {
         [SerializeField] private Renderer renderer;
+
+        public void Dispose()
+        {
+            if (gameObject != null)
+                Destroy(gameObject);
+        }
         
         public void SetChip(ChipSO chipSO)
         {

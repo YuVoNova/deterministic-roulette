@@ -8,24 +8,20 @@ namespace Player
     {
         private readonly PlayerDataHandler _playerDataHandler;
 
-        private PlayerData _playerData;
+        private readonly PlayerData _playerData;
 
-        public PlayerModule(IFileService fileService)
+        public PlayerModule(IFileService fileService, DataStore dataStore)
         {
             _playerDataHandler = new PlayerDataHandler(fileService);
             _playerData = _playerDataHandler.LoadData();
+            
+            dataStore.playerData.Set(_playerData);
         }
 
         public void Dispose()
         {
             Save();
-            
             _playerDataHandler.Dispose();
-        }
-
-        public PlayerData GetPlayerData()
-        {
-            return _playerData;
         }
 
         public void Save()

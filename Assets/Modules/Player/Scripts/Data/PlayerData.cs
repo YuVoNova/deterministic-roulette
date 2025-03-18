@@ -1,4 +1,5 @@
 using System;
+using Betting.Data;
 using UnityEngine;
 
 namespace Player.Data
@@ -6,11 +7,12 @@ namespace Player.Data
     [Serializable]
     public class PlayerData
     {
-        public const int DEFAULT_MONEY = 1000;
+        public const int DEFAULT_MONEY = 10000;
 
         public int Money => _money;
 
         [SerializeField] private int _money;
+        [SerializeField] private BetSlotData[] _activeBets;
 
         public PlayerData()
         {

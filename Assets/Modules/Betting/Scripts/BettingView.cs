@@ -8,14 +8,14 @@ namespace Betting
 {
     public interface IBettingView : IDisposableObject, IInitializableObject
     {
-        event Action<BetType, int> OnSlotClicked;
+        event Action<SlotObject> OnSlotClicked;
 
         void ClearBetDisplay();
     }
 
     public class BettingView : MonoBehaviour, IBettingView
     {
-        public event Action<BetType, int> OnSlotClicked;
+        public event Action<SlotObject> OnSlotClicked;
 
         [SerializeField] private SlotObject[] slotObjects;
         [SerializeField] private Material defaultMaterial;
@@ -53,9 +53,9 @@ namespace Betting
             }
         }
 
-        private void SlotClicked(BetType betType, int slotId)
+        private void SlotClicked(SlotObject slotObject)
         {
-            OnSlotClicked?.Invoke(betType, slotId);
+            OnSlotClicked?.Invoke(slotObject);
         }
 
         private void SlotHoverEnter(SlotObject slotObject)

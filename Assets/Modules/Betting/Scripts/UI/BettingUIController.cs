@@ -1,21 +1,24 @@
 using System;
 using Context.Interfaces;
+using UnityEngine;
 
 namespace Betting
 {
     public class BettingUIController : IDisposableObject
     {
-        public event Action OnSpinButtonClicked;
+        public event Action<int> OnSpinButtonClicked;
         public event Action OnClearBetsButtonClicked;
         
         private readonly IBettingUIView _view;
         
-        public BettingUIController()
+        public BettingUIController(int money)
         {
-            _view = new BettingUIView();
+            _view = GameObject.FindObjectOfType<BettingUIView>();
             _view.Init();
             _view.OnSpinButtonClicked += SpinButtonClicked;
             _view.OnClearBetsButtonClicked += ClearBetsButtonClicked;
+            
+            SetMoneyText(money);
         }
         
         public void Dispose()
@@ -28,9 +31,19 @@ namespace Betting
             _view.Dispose();
         }
         
-        private void SpinButtonClicked()
+        public void SetMoneyText(int amount)
         {
-            OnSpinButtonClicked?.Invoke();
+            _view.SetMoneyText(amount);
+        }
+        
+        public void SetActiveBetsText(int amount)
+        {
+            _view.SetActiveBetsText(amount);
+        }
+        
+        private void SpinButtonClicked(int result)
+        {
+            OnSpinButtonClicked?.Invoke(result);
         }
         
         private void ClearBetsButtonClicked()

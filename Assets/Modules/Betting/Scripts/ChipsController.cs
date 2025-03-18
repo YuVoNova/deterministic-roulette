@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Betting.Data;
 using Context.Interfaces;
@@ -6,6 +7,8 @@ namespace Betting
 {
     public class ChipsController : IDisposableObject
     {
+        public event Action<ChipSO> OnChipSelected;
+        
         private readonly IChipsView _view;
 
         private ChipSO _selectedChip;
@@ -29,6 +32,7 @@ namespace Betting
         private void ChipSelected(ChipSO chipSO)
         {
             _selectedChip = chipSO;
+            OnChipSelected?.Invoke(_selectedChip);
         }
     }
 }

@@ -9,18 +9,10 @@ namespace Context
         public ICoroutineService CoroutineService => _coroutineService;
         public IFileService FileService => _fileService;
 
-        private readonly DataStore _dataStore;
-        private readonly LifeCycleCallbacksService _lifeCycleCallbacksService;
-        private readonly CoroutineService _coroutineService;
-        private readonly FileService _fileService;
-
-        public ContextManager()
-        {
-            _dataStore = new DataStore();
-            _lifeCycleCallbacksService = new LifeCycleCallbacksService();
-            _coroutineService = new CoroutineService();
-            _fileService = new FileService();
-        }
+        private readonly DataStore _dataStore = new();
+        private readonly LifeCycleCallbacksService _lifeCycleCallbacksService = new();
+        private readonly CoroutineService _coroutineService = new();
+        private readonly FileService _fileService = new();
 
         public void Dispose()
         {

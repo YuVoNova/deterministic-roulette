@@ -49,7 +49,11 @@ namespace Roulette
 
         public void Dispose()
         {
+            if (gameObject == null)
+                return;
+            
             StopAllCoroutines();
+            Destroy(gameObject);
         }
 
         public void Standby()
