@@ -7,13 +7,17 @@ namespace Betting.Data
     public class BetResultData
     {
         public BetSlotData[] BetSlots;
+        public int ResultNumber;
+        public SlotColors ResultColor;
         public int WinAmount;
         public int TotalBetAmount;
         public int ProfitAmount;
         
-        public BetResultData(BetSlotData[] betSlots, int winAmount)
+        public BetResultData(BetSlotData[] betSlots, int resultNumber, SlotColors resultColor, int winAmount)
         {
             BetSlots = betSlots;
+            ResultNumber = resultNumber;
+            ResultColor = resultColor;
             WinAmount = winAmount;
             TotalBetAmount = CalculateTotalBetAmount();
             ProfitAmount = WinAmount - TotalBetAmount;

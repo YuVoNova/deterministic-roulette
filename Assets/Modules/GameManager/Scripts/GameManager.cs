@@ -2,7 +2,9 @@ using UnityEngine;
 using Context;
 using Roulette;
 using Betting;
+using Betting.Data;
 using Player;
+using Utils;
 
 namespace GameManager
 {
@@ -14,8 +16,10 @@ namespace GameManager
         private PlayerModule _playerModule;
         private RouletteModule _rouletteModule;
         private BettingModule _bettingModule;
-        
+
         private bool _isGameStarted = false;
+
+        private BetResultData _betResultData;
 
         private void Awake()
         {
@@ -36,13 +40,15 @@ namespace GameManager
 
             if (!_isGameStarted)
                 return;
-            
-            _bettingModule.OnSpinBall -= _rouletteModule.SpinBall;
-            
+
+            _bettingModule.OnSpinBall -= GenerateResultAndSpinBall;
+            _bettingModule.OnBetResult -= BetResolved;
+            _rouletteModule.OnBallStopped -= BallStopped;
+
             _rouletteModule.Dispose();
             _bettingModule.Dispose();
             _playerModule.Dispose();
-            
+
             // We dispose context manager last because Statistics and Player modules uses FileService to save their data.
             _contextManager.Dispose();
         }
@@ -57,10 +63,32 @@ namespace GameManager
             _playerModule = new PlayerModule(_contextManager.FileService, _contextManager.DataStore);
             _rouletteModule = new RouletteModule();
             _bettingModule = new BettingModule(_contextManager.DataStore);
-            
-            _bettingModule.OnSpinBall += _rouletteModule.SpinBall;
-            
+
+            _bettingModule.OnSpinBall += GenerateResultAndSpinBall;
+            _bettingModule.OnBetResult += BetResolved;
+            _rouletteModule.OnBallStopped += BallStopped;
+
             _isGameStarted = true;
+        }
+
+        private void GenerateResultAndSpinBall(int deterministicResult = -1)
+        {
+            int result = deterministicResult;
+            if (result is < Const.MIN_POCKET_VALUE or > Const.MAX_POCKET_VALUE)
+                result = Random.Range(Const.MIN_POCKET_VALUE, Const.MAX_POCKET_VALUE + 1);
+
+            _bettingModule.ResolveBets(result);
+            _rouletteModule.SpinBall(result);
+        }
+
+        private void BetResolved(BetResultData betResultData)
+        {
+            _betResultData = betResultData;
+        }
+
+        private void BallStopped()
+        {
+            _bettingModule.ShowResult(_betResultData);
         }
     }
 }

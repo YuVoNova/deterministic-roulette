@@ -1,4 +1,5 @@
 using System;
+using Betting.Data;
 using Context.Interfaces;
 using UnityEngine;
 
@@ -8,37 +9,53 @@ namespace Betting
     {
         public event Action<int> OnSpinButtonClicked;
         public event Action OnClearBetsButtonClicked;
+        public event Action OnResultFinished;
         
-        private readonly IBettingUIView _view;
+        private readonly IBettingUIView _bettingView;
+        private readonly IResultUIView _resultView;
         
         public BettingUIController(int money)
         {
-            _view = GameObject.FindObjectOfType<BettingUIView>();
-            _view.Init();
-            _view.OnSpinButtonClicked += SpinButtonClicked;
-            _view.OnClearBetsButtonClicked += ClearBetsButtonClicked;
+            _bettingView = GameObject.FindObjectOfType<BettingUIView>();
+            _bettingView.Init();
+            _bettingView.OnSpinButtonClicked += SpinButtonClicked;
+            _bettingView.OnClearBetsButtonClicked += ClearBetsButtonClicked;
+            
+            _resultView = GameObject.FindObjectOfType<ResultUIView>();
+            _resultView.HideResult();
+            _resultView.OnResultFinished += ResultFinished;
             
             SetMoneyText(money);
         }
         
         public void Dispose()
         {
-            if (_view == null)
+            if (_bettingView == null)
                 return;
             
-            _view.OnSpinButtonClicked -= SpinButtonClicked;
-            _view.OnClearBetsButtonClicked -= ClearBetsButtonClicked;
-            _view.Dispose();
+            _bettingView.OnSpinButtonClicked -= SpinButtonClicked;
+            _bettingView.OnClearBetsButtonClicked -= ClearBetsButtonClicked;
+            _bettingView.Dispose();
+            
+            if (_resultView == null)
+                return;
+            
+            _resultView.OnResultFinished -= ResultFinished;
         }
         
         public void SetMoneyText(int amount)
         {
-            _view.SetMoneyText(amount);
+            _bettingView.SetMoneyText(amount);
         }
         
         public void SetActiveBetsText(int amount)
         {
-            _view.SetActiveBetsText(amount);
+            _bettingView.SetActiveBetsText(amount);
+        }
+        
+        public void ShowResult(BetResultData betResultData)
+        {
+            _resultView.ShowResult(betResultData);
         }
         
         private void SpinButtonClicked(int result)
@@ -49,6 +66,12 @@ namespace Betting
         private void ClearBetsButtonClicked()
         {
             OnClearBetsButtonClicked?.Invoke();
+        }
+
+        private void ResultFinished()
+        {
+            _resultView.HideResult();
+            OnResultFinished?.Invoke();
         }
     }
 }
