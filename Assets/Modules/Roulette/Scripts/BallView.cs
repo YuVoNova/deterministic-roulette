@@ -1,15 +1,15 @@
 using System;
 using System.Collections;
+using Context.Interfaces;
 using UnityEngine;
 
 namespace Roulette
 {
-    public interface IBallView
+    public interface IBallView : IDisposableObject
     {
         event Action OnBallStopped;
 
         void Init(Transform rotatingWheel, Vector3 ballSpinPosition);
-        void Dispose();
         void Standby();
         void StartBallSpin(Transform targetPocketTransform);
     }
@@ -49,7 +49,7 @@ namespace Roulette
 
         public void Dispose()
         {
-            if (gameObject == null)
+            if (this == null)
                 return;
             
             StopAllCoroutines();

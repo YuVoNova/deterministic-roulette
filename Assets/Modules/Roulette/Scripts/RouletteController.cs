@@ -9,7 +9,6 @@ namespace Roulette
         public RouletteController()
         {
             _view = GameObject.FindObjectOfType<RouletteView>();
-            _view.Init();
         }
 
         public void Dispose()
